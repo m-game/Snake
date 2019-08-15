@@ -1,0 +1,12 @@
+[[source]]
+name = "pypi"
+url = "https://mirrors.huaweicloud.com/repository/pypi/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+pygame = "*"
+
+[requires]
+python_version = "3.7"
