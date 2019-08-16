@@ -34,8 +34,8 @@ ARROW_L = 2
 ARROW_U = 3
 
 SPEED = 0
-BLOCK_SIZE = 78
-PLANT_SIZE = 80
+BLOCK_SIZE = 18
+PLANT_SIZE = 20
 CHINK_SIZE = (PLANT_SIZE - BLOCK_SIZE) / 2
 
 caption = f"snake speed: {SPEED}"
@@ -47,8 +47,9 @@ head_x, head_y = PLANT_SIZE, PLANT_SIZE
 snake_length = 0
 snake_body = []
 
-i = 0
+i = 1
 while True:
+    clock.tick(60)
     event: EventType
     for event in pygame.event.get():
         assert isinstance(event.type, int)
@@ -75,10 +76,10 @@ while True:
                     snake_length = 0
                     snake_body = []
             elif event.key == pygame.K_PAGEUP:
-                SPEED = SPEED + 1 if SPEED < 100 else SPEED
+                SPEED = SPEED + 1 if SPEED < 10 else SPEED
                 caption = f"snake speed: {SPEED}"
             elif event.key == pygame.K_PAGEDOWN:
-                SPEED = SPEED - 1 if SPEED > 0 else SPEED
+                SPEED = SPEED - 1 if SPEED > 1 else SPEED
                 caption = f"snake speed: {SPEED}"
 
     # 更新标题
@@ -88,12 +89,11 @@ while True:
 
     # 游戏停止控制
     if sleep or not alive:
-        pygame.time.delay(100)
         continue
 
     # 速度控制
-    if i % (110 - SPEED) == 0:
-        i = 0
+    if i % (11 - SPEED) == 0:
+        i = 1
         # 生成食物
         if (food_x, food_y) in [(head_x, head_y)] + snake_body:
             food_x = random.randint(0, (size[0] / PLANT_SIZE) - 1) * PLANT_SIZE
@@ -134,4 +134,3 @@ while True:
         pygame.draw.rect(screen, GREEN, (head_x + CHINK_SIZE, head_y + CHINK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
         pygame.display.update()
     i += 1
-    pygame.time.delay(1)
